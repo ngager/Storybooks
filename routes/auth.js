@@ -9,4 +9,18 @@ router.get('/google/callback', passport.authenticate('google', {
     response.redirect('/dashboard');
   });
 
+router.get('/verify', (request, response) => {
+  if (request.user) {
+    console.log(request.user);
+  } else {
+    console.log('Not auth');
+  }
+});
+
+router.get('/logout', (request, response) => {
+    console.log('logout');
+    request.logout();
+    response.redirect('/');
+});
+
 module.exports = router;
