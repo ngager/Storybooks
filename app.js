@@ -7,6 +7,7 @@ const index = require('./routes/index');
 const stories = require('./routes/stories');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -37,6 +38,9 @@ app.use((request, response, next) => {
   response.locals.user = request.user || null;
   next();
 });
+
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI)
