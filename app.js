@@ -33,7 +33,7 @@ app.engine('handlebars', handlebars({
 }));
 app.set('view engine', 'handlebars');
 
-// Set global vars
+// Set Global Vars
 app.use((request, response, next) => {
   response.locals.user = request.user || null;
   next();
