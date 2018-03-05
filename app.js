@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars');
 const keys = require('./config/keys');
 const auth = require('./routes/auth');
 const index = require('./routes/index');
+const stories = require('./routes/stories');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const app = express();
@@ -42,8 +43,9 @@ mongoose.connect(keys.mongoURI)
   .then(() => console.log('MongoDB Connected'))
   .catch(error => console.log(error));
 
-app.use('/auth', auth);
 app.use('/', index);
+app.use('/auth', auth);
+app.use('/stories', stories);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
