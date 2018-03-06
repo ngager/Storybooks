@@ -30,5 +30,5 @@ const StorySchema = new Schema({
   }
 });
 
-// create the collection and add the schema
+// Create the collection and add the schema
 mongoose.model('stories', StorySchema, 'stories');
