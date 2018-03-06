@@ -14,7 +14,7 @@ mongoose.connect(keys.mongoURI)
   .then(() => console.log('MongoDB Connected'))
   .catch(error => console.log(error));
 
-  const app = express();
+const app = express();
   
 require('./models/User');
 require('./models/Story');
@@ -23,6 +23,7 @@ require('./config/passport')(passport);
 const auth = require('./routes/auth');
 const index = require('./routes/index');
 const stories = require('./routes/stories');
+const {truncate, stripTags} = require('./helpers/handlebars');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -39,6 +40,10 @@ app.use(passport.session());
 
 // Handlebars Middleware
 app.engine('handlebars', handlebars({
+  helpers: {
+    truncate: truncate,
+    stripTags: stripTags
+  },
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
