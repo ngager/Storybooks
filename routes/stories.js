@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-//const Story = mongoose.model('stories');
+const Story = mongoose.model('stories');
 const User = mongoose.model('users');
 const {ensureAuthenticated} = require('../helpers/auth');
 
@@ -30,7 +30,7 @@ router.post('/', ensureAuthenticated, (request, response) => {
   }
 
   // Create Story
-  new StorySchema(newStory)
+  new Story(newStory)
     .save()
     .then(story => {
       response.redirect(`/stories/show/${story.id}`);
