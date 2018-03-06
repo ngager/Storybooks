@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const {ensureAuthenticated} = require('../helpers/auth');
 
 router.get('/', (request, response) => {
   response.render('index/welcome');
 });
 
-router.get('/dashboard', (request, response) => {
+router.get('/dashboard', ensureAuthenticated, (request, response) => {
   response.render('index/dashboard');
 });
 
