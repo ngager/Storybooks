@@ -25,11 +25,16 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
   <script>
     $(document).ready(() => {
       $('.button-collapse').sideNav();
+      $('select').material_select();
+    });
+
+    CKEDITOR.replace('storyBody', {
+      plugins: 'wysiwygarea,toolbar,basicstyles,link'
     });
   </script>
 </body>
-
 </html>
