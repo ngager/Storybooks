@@ -23,7 +23,7 @@ require('./config/passport')(passport);
 const auth = require('./routes/auth');
 const index = require('./routes/index');
 const stories = require('./routes/stories');
-const {truncate, stripTags} = require('./helpers/handlebars');
+const {truncate, stripTags, formatDate} = require('./helpers/handlebars');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -42,7 +42,8 @@ app.use(passport.session());
 app.engine('handlebars', handlebars({
   helpers: {
     truncate: truncate,
-    stripTags: stripTags
+    stripTags: stripTags,
+    formatDate: formatDate
   },
   defaultLayout: 'main'
 }));

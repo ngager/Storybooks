@@ -13,6 +13,14 @@ router.get('/', (request, response) => {
     });
 });
 
+router.get('/show/:id', (request, response) => {
+  Story.findOne({_id: request.params.id})
+    .populate('user')
+    .then(story => {
+      response.render('stories/show', {story: story});
+    });
+});
+
 router.get('/add', ensureAuthenticated, (request, response) => {
   response.render('stories/add');
 });
