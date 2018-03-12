@@ -77,4 +77,11 @@ router.put('/:id', (request, response) => {
     });
 });
 
+router.delete('/:id', (request, response) => {
+  Story.remove({_id: request.params.id})
+    .then(() => {
+      response.redirect('/dashboard');
+    });
+});
+
 module.exports = router;
