@@ -56,4 +56,25 @@ router.post('/', ensureAuthenticated, (request, response) => {
     });
 });
 
+router.put('/:id', (request, response) => {
+  Story.findOne({_id: request.params.id})
+    .then(story => {
+      let allowComments;
+      if (request.body.alllowComments) {
+        allowComments = true;
+      } else {
+        allowComments = false;
+      }
+     
+      story.title = request.body.title;
+      story.body = request.body.storyBody;
+      story.status = request.body.status;
+      story.allowComments = allowComments;
+      story.save()
+        .then(story => {
+          response.redirect('/dashboard');
+        });
+    });
+});
+
 module.exports = router;

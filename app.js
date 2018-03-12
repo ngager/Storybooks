@@ -8,6 +8,7 @@ const session = require('express-session');
 const path = require('path');
 const port = process.env.PORT || 5000;
 const passport = require('passport');
+const methodOverride = require('method-override');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI)
@@ -27,6 +28,7 @@ const {truncate, stripTags, formatDate, select} = require('./helpers/handlebars'
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(session({
     secret: 'secret',
