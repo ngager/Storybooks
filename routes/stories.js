@@ -25,6 +25,13 @@ router.get('/add', ensureAuthenticated, (request, response) => {
   response.render('stories/add');
 });
 
+router.get('/edit/:id', ensureAuthenticated, (request, response) => {
+  Story.findOne({_id: request.params.id})
+    .then(story => {
+      response.render('stories/edit', {story: story});
+    });
+});
+
 router.post('/', ensureAuthenticated, (request, response) => {
   let allowComments;
   if (request.body.alllowComments) {
