@@ -25,6 +25,7 @@ router.get('/add', ensureAuthenticated, (request, response) => {
   response.render('stories/add');
 });
 
+// TODO: Cannot modify allowComments
 router.get('/edit/:id', ensureAuthenticated, (request, response) => {
   Story.findOne({_id: request.params.id})
     .then(story => {
@@ -81,6 +82,22 @@ router.delete('/:id', (request, response) => {
   Story.remove({_id: request.params.id})
     .then(() => {
       response.redirect('/dashboard');
+    });
+});
+
+router.post('/comment/:id', (request, response) => {
+  Story.findOne({_id: request.params.id})
+    .then(story => {
+      const newComment = {
+        commentBody: request.params.commentBody,
+        commentUser: request.user.id
+      };
+
+      story.comments.unshift(newComment);
+      story.save()
+        .then(story => {
+          response.redirect(`/stories/show/${story.id}`);
+        });
     });
 });
 
