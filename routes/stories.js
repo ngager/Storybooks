@@ -16,6 +16,7 @@ router.get('/', (request, response) => {
 router.get('/show/:id', (request, response) => {
   Story.findOne({_id: request.params.id})
     .populate('user')
+    .populate('comments.commentUser')
     .then(story => {
       response.render('stories/show', {story: story});
     });
@@ -89,9 +90,9 @@ router.post('/comment/:id', (request, response) => {
   Story.findOne({_id: request.params.id})
     .then(story => {
       const newComment = {
-        commentBody: request.params.commentBody,
+        commentBody: request.body.commentBody,
         commentUser: request.user.id
-      };
+      }
 
       story.comments.unshift(newComment);
       story.save()
