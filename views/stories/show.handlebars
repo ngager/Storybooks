@@ -36,6 +36,8 @@
               <img src="{{commentUser.image}}">
               {{commentUser.firstName}} {{commentUser.lastName}}
             </div>
+            <br>
+            <small>Posted: {{formatDate commentDate 'MMMM Do YYYY'}}</small>
           </div>
         </div>
       {{/each}}
