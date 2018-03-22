@@ -31,7 +31,11 @@ router.get('/add', ensureAuthenticated, (request, response) => {
 router.get('/edit/:id', ensureAuthenticated, (request, response) => {
   Story.findOne({_id: request.params.id})
     .then(story => {
-      response.render('stories/edit', {story: story});
+      if (story.user != request.user.id) {
+        response.redirect('/stories');
+      } else {
+        response.render('stories/edit', {story: story});
+      }
     });
 });
 

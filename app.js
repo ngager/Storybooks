@@ -24,7 +24,7 @@ require('./config/passport')(passport);
 const auth = require('./routes/auth');
 const index = require('./routes/index');
 const stories = require('./routes/stories');
-const {truncate, stripTags, formatDate, select} = require('./helpers/handlebars');
+const {truncate, stripTags, formatDate, select, editIcon} = require('./helpers/handlebars');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -46,7 +46,8 @@ app.engine('handlebars', handlebars({
     truncate: truncate,
     stripTags: stripTags,
     formatDate: formatDate,
-    select: select
+    select: select,
+    editIcon: editIcon
   },
   defaultLayout: 'main'
 }));
