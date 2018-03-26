@@ -31,6 +31,14 @@ router.get('/user/:userId', (request, response) => {
     });
 });
 
+router.get('/my', ensureAuthenticated, (request, response) => {
+  Story.find({user: request.user.id})
+    .populate('user')
+    .then(stories => {
+      response.render('stories/index', {stories: stories});
+    });
+});
+
 router.get('/add', ensureAuthenticated, (request, response) => {
   response.render('stories/add');
 });
