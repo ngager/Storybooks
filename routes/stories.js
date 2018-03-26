@@ -23,6 +23,14 @@ router.get('/show/:id', (request, response) => {
     });
 });
 
+router.get('/user/:userId', (request, response) => {
+  Story.find({user: request.params.userId, status: 'public'})
+    .populate('user')
+    .then(stories => {
+      response.render('stories/index', {stories: stories});
+    });
+});
+
 router.get('/add', ensureAuthenticated, (request, response) => {
   response.render('stories/add');
 });
