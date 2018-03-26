@@ -19,7 +19,19 @@ router.get('/show/:id', (request, response) => {
     .populate('user')
     .populate('comments.commentUser')
     .then(story => {
-      response.render('stories/show', {story: story});
+      if (story.status == 'public') {
+        response.render('stories/show', {story: story});
+      } else {
+        if (request.user) {
+          if (request.user.id == story.user._id) {
+            response.render('stories/show', {story: story});
+          } else {
+            response.redirect('/stories');
+          }
+        } else {
+          response.redirect('/stories');
+        }
+      }
     });
 });
 
